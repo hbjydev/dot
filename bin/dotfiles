@@ -13,9 +13,6 @@ CONFIG_DIR="$HOME/.config/dotfiles"
 DOTFILES_DIR="$HOME/.local/share/dotfiles"
 SSH_DIR="$HOME/.ssh"
 
-# use existing git ssh
-GIT_SSH=0
-
 # install Ansible
 if ! [[ -x "$(command -v ansible)" ]]; then
   sudo dnf install -y ansible
@@ -33,10 +30,6 @@ fi
 if [ ! -d "$DOTFILES_DIR" ]; then
   # repo does not already exist
   CLONE_URL="https://github.com/hbjydev/dot.git"
-  if [[ "$GIT_SSH" == "yes" ]]; then  
-    CLONE_URL="git@github.com:hbjydev/dot.git"
-  fi
-
   git clone "$CLONE_URL" "$DOTFILES_DIR"
 else
   # repo does already exist
@@ -49,10 +42,9 @@ cd "$DOTFILES_DIR"
 # update galaxy deps
 ansible-galaxy install -r requirements.yaml
 
-# run install playbook
 if [[ -f "$CONFIG_DIR/vault-password.txt" ]]; then
-  ansible-playbook --diff --extra-vars "@$CONFIG_DIR/values.yaml" --vault-password-file "$CONFIG_DIR/vault-password.txt" "$DOTFILES_DIR/main.yaml"
+  ansible-playbook -K --diff --extra-vars "@$CONFIG_DIR/values.yaml" --vault-password-file "$CONFIG_DIR/vault-password.txt" "$DOTFILES_DIR/main.yaml"
 else
-  ansible-playbook --diff --extra-vars "@$CONFIG_DIR/values.yaml" "$DOTFILES_DIR/main.yaml"
+  ansible-playbook -K --diff --extra-vars "@$CONFIG_DIR/values.yaml" "$DOTFILES_DIR/main.yaml"
 fi
 
