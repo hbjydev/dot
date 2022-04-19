@@ -5,6 +5,9 @@ default_roles:
   - git
   - ripgrep
   - neovim
+
+  - kubectl
+
   - flathub
   - teams
   - discord
