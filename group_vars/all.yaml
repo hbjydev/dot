@@ -5,4 +5,8 @@ default_roles:
   - git
   - ripgrep
   - neovim
+  - flathub
+  - teams
+  - discord
+  - cider
 

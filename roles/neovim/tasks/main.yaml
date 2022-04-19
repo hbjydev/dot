@@ -22,3 +22,6 @@
     dest: "{{ ansible_user_dir }}/.config/nvim/lua"
     src: "lua/"
 
+- name: Packer Sync
+  command: nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
+
