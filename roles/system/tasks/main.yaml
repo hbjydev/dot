@@ -1,0 +1,7 @@
+---
+- name: Set hosts
+  ansible.builtin.template:
+    dest: /etc/hosts
+    src: hosts.j2
+  become: true
+
