@@ -2,11 +2,11 @@
 set -e
 
 ## SCRIPT ONLY SUPPORTS FEDORA.
-osid="$(cat /etc/os-release | grep -e '^ID=' | awk -F = '{ print $2 }')"
-if [[ "$osid" != "fedora" ]]; then
-  echo 'This script only supports Fedora'.
-  exit 1
-fi
+#osid="$(cat /etc/os-release | grep -e '^ID=' | awk -F = '{ print $2 }')"
+#if [[ "$osid" != "fedora" ]]; then
+#  echo 'This script only supports Fedora'.
+#  exit 1
+#fi
 
 # paths
 CONFIG_DIR="$HOME/.config/dotfiles"
