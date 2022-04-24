@@ -13,6 +13,8 @@ then
 fi
 export PATH
 
+export PATH="$HOME/.local/share/dotfiles/bin:$PATH"
+
 [[ -x "$(command -v direnv)" ]] && eval "$(direnv hook bash)"
 [[ -d $HOME/.krew ]] && export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
 [[ -x "$(command -v pulumi)" ]] && export PATH="$PATH:$HOME/.pulumi/bin"

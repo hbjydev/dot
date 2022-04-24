@@ -16,7 +16,7 @@
   community.general.git_config:
     name: pull.rebase
     scope: global
-    value: true
+    value: false
 
 - name: Set user.email
   community.general.git_config:

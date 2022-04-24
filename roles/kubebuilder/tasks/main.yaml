@@ -1,2 +1,8 @@
 ---
-- 
+- name: Download kubebuilder
+  ansible.builtin.get_url:
+    url: 'https://go.kubebuilder.io/dl/latest/{{ go_goos | default("linux") }}/{{ go_goarch | default("amd64") }}'
+    dest: /usr/local/bin/kubebuilder
+    mode: '0755'
+  become: true
+
