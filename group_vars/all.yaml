@@ -4,12 +4,22 @@ default_roles:
   - ssh
   - git
   - ripgrep
-  - neovim
-
-  - kubectl
-
   - flathub
   - teams
   - discord
   - cider
+  - datagrip
+  - obsidian
+  - insomnia
+  - kubectl
+  - nvm
+  - vscode
+  - terraform
+  - azure-cli
+  - github-cli
+  - go
+  - neovim
+  - bash
+
+go_versions: ['1.16', '1.18']
 

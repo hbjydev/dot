@@ -1,5 +1,5 @@
 ---
-- name: Install Microsoft Teams
+- name: Install
   community.general.flatpak:
     name: com.microsoft.Teams
     state: present

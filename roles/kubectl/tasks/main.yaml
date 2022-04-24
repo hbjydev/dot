@@ -1,6 +1,6 @@
 ---
 - name: Install Kubectl YUM repo
-  ansible.builtin.yum_repo:
+  ansible.builtin.yum_repository:
     name: kubernetes
     description: Kubernetes
     baseurl: https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64
@@ -9,7 +9,7 @@
     gpgkey:
       - https://packages.cloud.google.com/yum/doc/yum-key.gpg
       - https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
-    enabled: true
+    state: present
   become: true
 
 - name: Install Kubectl

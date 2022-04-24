@@ -1,7 +1,7 @@
 ---
 - name: Install
   community.general.flatpak:
-    name: com.discordapp.Discord
+    name: rest.insomnia.Insomnia
     state: present
     remote: flathub
 

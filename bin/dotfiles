@@ -17,6 +17,12 @@ SSH_DIR="$HOME/.ssh"
 if ! [[ -x "$(command -v ansible)" ]]; then
   sudo dnf install -y ansible
 fi
+if ! [[ -x "$(command -v ssh-keygen)" ]]; then
+  sudo dnf install -y openssh
+fi
+if ! [[ -x "$(command -v git)" ]]; then
+  sudo dnf install -y git
+fi
 
 # generate ssh keys
 if ! [[ -f "$SSH_DIR/authorized_keys" ]]; then

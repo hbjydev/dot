@@ -1,0 +1,24 @@
+---
+- name: Copy bashrc
+  ansible.builtin.copy:
+    src: bashrc
+    dest: '{{ ansible_user_dir }}/.bashrc'
+
+- name: Copy bash_profile
+  ansible.builtin.copy:
+    src: bash_profile
+    dest: '{{ ansible_user_dir }}/.bash_profile'
+
+- name: Create bashrc.d
+  ansible.builtin.file:
+    path: '{{ ansible_user_dir }}/.bashrc.d'
+    state: directory
+
+- name: Copy bashrc.d
+  ansible.builtin.copy:
+    src: '{{ rc }}'
+    dest: '{{ ansible_user_dir }}/.bashrc.d/'
+  loop: "{{ lookup('fileglob', 'bashrc.d/*.bash', wantlist=True) }}"
+  loop_control:
+    loop_var: 'rc'
+

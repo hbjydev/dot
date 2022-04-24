@@ -1,0 +1,7 @@
+---
+- name: Install
+  community.general.flatpak:
+    name: sh.cider.Cider
+    state: present
+    remote: flathub
+

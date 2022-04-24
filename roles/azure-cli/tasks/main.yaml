@@ -1,0 +1,21 @@
+---
+- name: Import RPM GPG key
+  ansible.builtin.rpm_key:
+    state: present
+    key: https://packages.microsoft.com/keys/microsoft.asc
+  become: true
+
+- name: Install RPM repo
+  ansible.builtin.package:
+    name: 
+      - https://packages.microsoft.com/config/rhel/8/packages-microsoft-prod.rpm
+    state: latest
+  become: true
+
+- name: Install
+  ansible.builtin.package:
+    name: 
+      - azure-cli
+    state: latest
+  become: true
+

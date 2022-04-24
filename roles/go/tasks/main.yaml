@@ -1,0 +1,16 @@
+---
+- name: Install GVM
+  shell: >
+    bash < <(curl -s -S -L https://raw.githubusercontent.com/moovweb/gvm/master/binscripts/gvm-installer)
+  args:
+    creates: '{{ ansible_env.HOME }}/.gvm/bin/gvm'
+
+- name: Install Go versions
+  shell: >
+    {{ ansible_env.HOME }}/.gvm/bin/gvm install go{{ go_version }} -B
+  loop: '{{ go_versions }}'
+  loop_control:
+    loop_var: go_version
+  args:
+    creates: '{{ ansible_env.HOME }}/.gvm/environments/go{{ go_version }}'
+

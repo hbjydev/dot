@@ -1,9 +1,47 @@
 ---
-- name: Install
+- name: Install build dependencies
   ansible.builtin.package:
     name:
-      - neovim
+      - '@Development Tools'
+      - cmake
+      - curl
+      - unzip
+      - libtree-sitter-devel
+      - libtool
+      - ninja-build
     state: latest
+  become: true
+
+- name: Clone source
+  ansible.builtin.git:
+    clone: true
+    depth: 1
+    dest: '{{ ansible_user_dir }}/Repos/github.com/neovim/neovim'
+    force: true
+    repo: https://github.com/neovim/neovim.git
+    single_branch: true
+    update: true
+    version: "{{ neovim_version | default('master') }}"
+  register: clone
+
+- name: Build
+  make:
+    chdir: '{{ ansible_user_dir }}/Repos/github.com/neovim/neovim'
+    params:
+      CMAKE_BUILD_TYPE: RelWithDebInfo
+  when: clone.changed
+
+- name: Install
+  make:
+    chdir: '{{ ansible_user_dir }}/Repos/github.com/neovim/neovim'
+    target: install
+  become: true
+  when: clone.changed
+
+- name: Remove build folder
+  ansible.builtin.file:
+    path: '{{ ansible_user_dir }}/Repos/github.com/neovim/neovim/build'
+    state: absent
   become: true
 
 - name: Config folder
@@ -24,4 +62,5 @@
 
 - name: Packer Sync
   command: nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
+  tags: packer_sync
 
