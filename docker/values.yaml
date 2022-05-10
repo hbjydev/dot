@@ -1,0 +1,18 @@
+---
+exclude_roles:
+- cider
+- datagrip
+- discord
+- flathub
+- fonts
+- go
+- insomnia
+- notion
+- obsidian
+- system
+- teams
+- vscode
+
+git_user_email: hayden@hbjy.dev
+git_user_name: Hayden Young
+

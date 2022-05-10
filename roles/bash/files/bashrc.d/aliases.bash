@@ -21,8 +21,19 @@ alias kw="kubectl -o wide"
 alias airplay="gst-launch-1.0 airplaysrc ! queue ! h264parse ! avdec_h264 max-threads=1 ! autovideosink"
 
 alias mk='minikube'
+alias tf='terraform'
 
+alias vi='nvim'
+alias vim='nvim'
+alias e='nvim'
+
+# cheatsheet
 function cht() {
   curl cht.sh/$@
+}
+
+# go to repository
+function gtr() {
+  cd $HOME/Repos/$1/$2
 }
 

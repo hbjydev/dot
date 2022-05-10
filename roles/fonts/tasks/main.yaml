@@ -1,0 +1,23 @@
+---
+- name: ensure fonts directory
+  file:
+    path: "{{ lookup('env', 'HOME') }}/.fonts"
+    state: directory
+
+- name: Caskaydia Cove exists
+  shell: "ls {{ lookup('env', 'HOME') }}/.fonts/Caskaydia Cove*Nerd*Font*Complete*"
+  register: cc_exists
+  ignore_errors: true
+
+- name: Download Caskaydia Cove
+  when: cc_exists is failed
+  ansible.builtin.unarchive:
+    src: https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/CascadiaCode.zip
+    dest: "{{ lookup('env', 'HOME') }}/.fonts/"
+    remote_src: true
+  register: cc_install
+
+- name: Reload font cache
+  when: cc_install.changed
+  shell: fc-cache -fv
+

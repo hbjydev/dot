@@ -3,10 +3,14 @@ default_roles:
   - system
   - ssh
   - git
+  - fonts
+  - nnn
+  - direnv
   - ripgrep
   - flathub
   - teams
   - discord
+  - notion
   - cider
   - datagrip
   - obsidian

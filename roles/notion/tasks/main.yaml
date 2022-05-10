@@ -1,0 +1,17 @@
+---
+- name: Install Notion repo
+  ansible.builtin.yum_repository:
+    name: notion-repackaged
+    description: Notion Repackaged
+    baseurl: https://yum.fury.io/notion-repackaged/
+    enabled: true
+    gpgcheck: false
+    state: present
+  become: true
+
+- name: Install
+  ansible.builtin.package:
+    name: notion-app
+    state: latest
+  become: true
+

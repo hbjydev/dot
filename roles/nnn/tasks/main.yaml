@@ -1,0 +1,16 @@
+- name: Extract tarball
+  unarchive:
+    remote_src: true
+    src: 'https://github.com/jarun/nnn/releases/download/v4.5/nnn-nerd-static-4.5.x86_64.tar.gz'
+    dest: '/usr/local/bin'
+  become: true
+
+- name: Symlink nnn-nerd-static to nnn
+  file:
+    src: /usr/local/bin/nnn-nerd-static
+    dest: /usr/local/bin/nnn
+    owner: root
+    group: root
+    state: link
+  become: true  
+

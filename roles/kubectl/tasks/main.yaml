@@ -35,11 +35,11 @@
     loop_var: kubectl_config_item
   with_items: "{{ kubectl_config | default({}) | dict2items }}"
 
-- name: Set active
-  ansible.builtin.file:
-    dest: "{{ ansible_user_dir }}/.kube/config"
-    src: "{{ ansible_user_dir }}/.kube/conf.d/{{ kubectl_config_active }}.conf"
-    state: link
-  no_log: true
-  when: kubectl_config[kubectl_config_active] is defined
+#- name: Set active
+#  ansible.builtin.file:
+#    dest: "{{ ansible_user_dir }}/.kube/config"
+#    src: "{{ ansible_user_dir }}/.kube/conf.d/{{ kubectl_config_active }}.conf"
+#    state: link
+#  no_log: true
+#  when: kubectl_config[kubectl_config_active] is defined
 

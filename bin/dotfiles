@@ -48,9 +48,11 @@ cd "$DOTFILES_DIR"
 # update galaxy deps
 ansible-galaxy install -r requirements.yaml
 
+args="$@"
+
 if [[ -f "$CONFIG_DIR/vault-password.txt" ]]; then
-  ansible-playbook -K --diff --extra-vars "@$CONFIG_DIR/values.yaml" --vault-password-file "$CONFIG_DIR/vault-password.txt" "$DOTFILES_DIR/main.yaml"
+  ansible-playbook -K --diff --extra-vars "@$CONFIG_DIR/values.yaml" --vault-password-file "$CONFIG_DIR/vault-password.txt" "$DOTFILES_DIR/main.yaml" $args
 else
-  ansible-playbook -K --diff --extra-vars "@$CONFIG_DIR/values.yaml" "$DOTFILES_DIR/main.yaml"
+  ansible-playbook -K --diff --extra-vars "@$CONFIG_DIR/values.yaml" "$DOTFILES_DIR/main.yaml" $args
 fi
 

@@ -1,5 +1,2 @@
--- main imports
-require('plugins')
-require('mappings')
-require('options')
+require 'hbjydev'.init()
 
