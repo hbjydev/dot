@@ -4,5 +4,5 @@
     name: flathub
     state: present
     flatpakrepo_url: https://dl.flathub.org/repo/flathub.flatpakrepo
-    method: user
+    method: system
 
