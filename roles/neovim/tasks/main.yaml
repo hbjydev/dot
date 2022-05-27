@@ -1,5 +1,5 @@
 ---
-- name: Install build dependencies
+- name: Install build dependencies (Red Hat)
   ansible.builtin.package:
     name:
       - '@Development Tools'
@@ -13,6 +13,26 @@
       - ninja-build
     state: latest
   become: true
+  when: ansible_os_family == "RedHat"
+
+- name: Install build dependencies (Debian)
+  ansible.builtin.package:
+    name:
+      - ninja-build
+      - gettext  
+      - libtool
+      - libtool-bin
+      - autoconf
+      - automake
+      - cmake
+      - g++
+      - pkg-config
+      - unzip
+      - curl
+      - doxygen
+    state: latest
+  become: true
+  when: ansible_os_family == "Debian"
 
 - name: Clone source
   ansible.builtin.git:
@@ -65,6 +85,6 @@
   register: mod_copy
 
 - name: Packer Sync
-  command: nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
+  command: /usr/local/bin/nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
   when: clone.changed or mod_copy.changed or init_copy.changed
 

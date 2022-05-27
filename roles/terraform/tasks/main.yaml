@@ -1,16 +1,32 @@
 ---
-- name: Install repo
+- name: Install repo (Red Hat)
   command:
     cmd: dnf config-manager --add-repo https://rpm.releases.hashicorp.com/fedora/hashicorp.repo
     warn: false
   args:
     creates: /etc/yum.repos.d/hashicorp.repo
   become: true
+  when: ansible_os_family == 'RedHat'
+
+- name: Install GPG signing key (Debian)
+  ansible.builtin.shell: >
+    wget -qO - terraform.gpg https://apt.releases.hashicorp.com/gpg | gpg --dearmor -o /usr/share/keyrings/terraform-archive-keyring.gpg
+  args:
+    creates: /usr/share/keyrings/terraform-archive-keyring.gpg
+    chdir: /tmp
+  become: true
+  when: ansible_os_family == 'Debian'
+
+- name: Install Apt Repo (Debian)
+  ansible.builtin.apt_repository:
+    repo: deb [arch=amd64 signed-by=/usr/share/keyrings/terraform-archive-keyring.gpg] https://apt.releases.hashicorp.com focal main
+    state: present
+  become: true
+  when: ansible_os_family == "Debian"
 
 - name: Install
   ansible.builtin.package:
-    name:
-      - terraform
+    name: terraform
     state: latest
   become: true
 

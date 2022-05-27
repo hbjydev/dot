@@ -1,16 +1,31 @@
 ---
-- name: Install repo
+- name: Install repo (Red Hat)
   command:
     cmd: dnf config-manager --add-repo https://cli.github.com/packages/rpm/gh-cli.repo
     warn: false
   args:
     creates: /etc/yum.repos.d/gh-cli.repo
   become: true
+  when: ansible_os_family == 'RedHat'
+
+- name: Install GPG key (Debian)
+  ansible.builtin.shell: >
+    curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg
+  args:
+    creates: /usr/share/keyrings/githubcli-archive-keyring.gpg
+  become: true
+  when: ansible_os_family == 'Debian'
+
+- name: Install repo (Debian)
+  ansible.builtin.apt_repository:
+    repo: deb [arch=amd64 signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main
+    state: present
+  become: true
+  when: ansible_os_family == 'Debian'
 
 - name: Install
   ansible.builtin.package:
-    name:
-      - gh
+    name: gh
     state: latest
   become: true
 

@@ -1,5 +1,5 @@
 ---
-- name: Install Kubectl YUM repo
+- name: Install Kubectl YUM repo (Red Hat)
   ansible.builtin.yum_repository:
     name: kubernetes
     description: Kubernetes
@@ -11,11 +11,25 @@
       - https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
     state: present
   become: true
+  when: ansible_os_family == "RedHat"
+
+- name: Install Kubernetes Repo GPG key (Debian)
+  ansible.builtin.get_url:
+    url: https://packages.cloud.google.com/apt/doc/apt-key.gpg
+    dest: /usr/share/keyrings/kubernetes-archive-keyring.gpg
+  become: true
+  when: ansible_os_family == "Debian"
+
+- name: Install Kubernetes Apt Repo (Debian)
+  ansible.builtin.apt_repository:
+    repo: deb [signed-by=/usr/share/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main
+    state: present
+  become: true
+  when: ansible_os_family == "Debian"
 
 - name: Install Kubectl
   ansible.builtin.package:
-    name:
-      - kubectl
+    name: kubectl
     state: latest
   become: true
 

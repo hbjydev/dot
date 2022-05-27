@@ -4,6 +4,7 @@
     state: present
     key: https://packages.microsoft.com/keys/microsoft.asc
   become: true
+  when: ansible_os_family == 'RedHat'
 
 - name: Install RPM repo
   ansible.builtin.package:
@@ -11,6 +12,22 @@
       - https://packages.microsoft.com/config/rhel/8/packages-microsoft-prod.rpm
     state: latest
   become: true
+  when: ansible_os_family == 'RedHat'
+
+- name: Install GPG Key (Debian)
+  ansible.builtin.shell: >
+    curl -sL https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/microsoft.gpg > /dev/null
+  args:
+    creates: /etc/apt/trusted.gpg.d/microsoft.gpg
+  become: true
+  when: ansible_os_family == 'Debian'
+
+- name: Install Apt Repo (Debian)
+  ansible.builtin.apt_repository:
+    repo: deb [arch=amd64] https://packages.microsoft.com/repos/azure-cli/ focal main 
+    state: present
+  become: true
+  when: ansible_os_family == "Debian"
 
 - name: Install
   ansible.builtin.package:
