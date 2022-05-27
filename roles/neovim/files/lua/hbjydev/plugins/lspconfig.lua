@@ -21,15 +21,15 @@ local function on_attach(client, bufnr)
   map('n', 'gl', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics({ border = "rounded" })<CR>', opts)
   map('n', ']d', '<cmd>lua vim.diagnostic.goto_prev({ border = "rounded" })<CR>', opts)
 
-  if client.server_capabilities.document_formatting then
-    map('n', '<leader>f', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
+  if client.server_capabilities.documentFormattingProvider then
+    map('n', '<leader>f', '<cmd>lua vim.lsp.buf.format({ async = true })<CR>', opts)
   end
 
-  if client.server_capabilities.document_range_formatting then
+  if client.server_capabilities.documentRangeFormattingProvider then
     map("v", "<space>f", "<cmd>lua vim.lsp.buf.range_formatting()<CR>", opts)
   end
 
-  if client.server_capabilities.document_highlight then
+  if client.server_capabilities.documentHighlightProvider then
     vim.api.nvim_exec([[
       augroup lsp_document_highlight
         autocmd! * <buffer>

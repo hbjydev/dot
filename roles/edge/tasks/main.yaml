@@ -1,0 +1,7 @@
+---
+- name: Install
+  ansible.builtin.package:
+    name: https://packages.microsoft.com/fedora/36/prod/packages-microsoft-prod.rpm
+    state: installed
+  become: true
+

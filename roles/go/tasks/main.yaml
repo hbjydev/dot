@@ -7,8 +7,7 @@
 
 - name: Install Go versions
   shell: >
-    . {{ ansible_env.HOME }}/.bashrc
-    {{ ansible_env.HOME }}/.gvm/bin/gvm install go{{ go_version }} -B
+    . {{ ansible_env.HOME }}/.bashrc && {{ ansible_env.HOME }}/.gvm/bin/gvm install go{{ go_version }} -B
   loop: '{{ go_versions }}'
   loop_control:
     loop_var: go_version

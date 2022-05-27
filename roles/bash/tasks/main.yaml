@@ -1,4 +1,9 @@
 ---
+- name: Copy profile
+  ansible.builtin.copy:
+    src: profile
+    dest: '{{ ansible_user_dir }}/.profile'
+
 - name: Copy bashrc
   ansible.builtin.copy:
     src: bashrc
