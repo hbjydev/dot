@@ -50,9 +50,18 @@ ansible-galaxy install -r requirements.yaml
 
 args="$@"
 
+cmd="ansible-playbook --diff --extra-vars @$CONFIG_DIR/values.yaml $DOTFILES_DIR/main.yaml"
+
 if [[ -f "$CONFIG_DIR/vault-password.txt" ]]; then
-  ansible-playbook -K --diff --extra-vars "@$CONFIG_DIR/values.yaml" --vault-password-file "$CONFIG_DIR/vault-password.txt" "$DOTFILES_DIR/main.yaml" $args
-else
-  ansible-playbook -K --diff --extra-vars "@$CONFIG_DIR/values.yaml" "$DOTFILES_DIR/main.yaml" $args
+  cmd="$cmd --vault-password-file $CONFIG_DIR/vault-password.txt"
 fi
+
+if [[ -f "$CONFIG_DIR/become-password.txt" ]]; then
+  cmd="$cmd --become-password-file $CONFIG_DIR/become-password.txt"
+else
+  cmd="$cmd --ask-become-pass"
+fi
+
+echo "+ $cmd $args"
+exec $cmd $args
 

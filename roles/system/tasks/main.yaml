@@ -5,6 +5,12 @@
     state: latest
   become: true
 
+- name: Install clipboard utilities
+  ansible.builtin.package:
+    name: wl-clipboard,xclip,xsel
+    state: latest
+  become: true
+
 - name: Set hosts
   ansible.builtin.template:
     dest: /etc/hosts

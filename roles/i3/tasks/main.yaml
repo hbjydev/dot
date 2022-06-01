@@ -1,0 +1,17 @@
+---
+- name: Install
+  ansible.builtin.package:
+    name: i3
+    state: latest
+  become: true
+
+- name: Create config dir
+  ansible.builtin.file:
+    path: '{{ ansible_user_dir }}/.config/i3'
+    state: directory
+
+- name: Deploy config
+  ansible.builtin.copy:
+    src: config
+    dest: '{{ ansible_user_dir }}/.config/i3/config'
+...

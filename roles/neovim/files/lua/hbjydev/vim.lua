@@ -26,7 +26,19 @@ local function set_augroup()
 end
 
 local function set_vim_g()
-  vim.g.mapleader = " "
+  local settings = {
+    mapleader = " ",
+
+    -- netrw
+    netrw_keepdir = 0,
+    netrw_winsize = 30,
+    netrw_banner = 0,
+    netrw_localcopydircmd = 'cp -r'
+  }
+
+  for k, v in pairs(settings) do
+    vim.g[k] = v
+  end
 end
 
 local function set_vim_o()
@@ -38,7 +50,8 @@ local function set_vim_o()
     scrolloff = 3,
     softtabstop = 2,
     showmode = false,
-    termguicolors = true
+    termguicolors = true,
+    clipboard = 'unnamedplus',
   }
 
   -- Generic vim.o
@@ -46,8 +59,6 @@ local function set_vim_o()
     vim.o[k] = v
   end
 
-  -- Custom vim.o
-  vim.o.clipboard = 'unnamedplus'
   vim.o.shortmess = vim.o.shortmess .. 'c'
 
   -- Not yet in vim.o
@@ -75,6 +86,8 @@ local function set_keymaps()
   map('n', '<leader>j', '<CMD>wincmd j<CR>', options)
   map('n', '<leader>k', '<CMD>wincmd k<CR>', options)
   map('n', '<leader>l', '<CMD>wincmd l<CR>', options)
+
+  map('n', '<leader>pv', '<CMD>Ex<CR>', options)
 end
 
 local function init()

@@ -1,0 +1,13 @@
+---
+- name: Create /usr/share/themes
+  ansible.builtin.file:
+    path: '/usr/share/themes'
+    state: directory
+  become: true
+
+- name: Copy /usr/share/themes/TokyoNight
+  ansible.builtin.copy:
+    src: 'TokyoNight'
+    dest: '/usr/share/themes/'
+  become: true
+

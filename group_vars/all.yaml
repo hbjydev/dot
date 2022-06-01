@@ -4,10 +4,15 @@ default_roles:
   - bash
   - ssh
   - git
+  - tmux
+  - neovim
+  - i3
+  - kitty
   - fonts
   - nnn
   - direnv
   - ripgrep
+  - gtk
   - flathub
   - teams
   - discord
@@ -25,7 +30,6 @@ default_roles:
   - github-cli
   - go
   - kubebuilder
-  - neovim
 
 go_versions: ['1.16', '1.18']
 
