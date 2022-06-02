@@ -7,6 +7,7 @@ default_roles:
   - tmux
   - neovim
   - i3
+  - rofi
   - kitty
   - fonts
   - nnn

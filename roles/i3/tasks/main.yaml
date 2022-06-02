@@ -1,7 +1,9 @@
 ---
 - name: Install
   ansible.builtin.package:
-    name: i3
+    name:
+      - i3
+      - xrandr # needed for monitor config
     state: latest
   become: true
 

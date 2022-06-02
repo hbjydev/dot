@@ -4,4 +4,14 @@
     name: kitty
     state: latest
   become: true
+
+- name: Create config directory
+  ansible.builtin.file:
+    path: '{{ ansible_user_dir }}/.config/kitty'
+    state: directory
+
+- name: Deploy config
+  ansible.builtin.copy:
+    src: kitty.conf
+    dest: '{{ ansible_user_dir }}/.config/kitty/kitty.conf'
 ...

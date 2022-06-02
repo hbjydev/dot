@@ -43,3 +43,8 @@ fromhex(){
                        (b<75?0:(b-35)/40)     + 16 ))"
 }
 
+projectDir() {
+  dir=$(find ~/workspace -mindepth 2 -maxdepth 2 -type d | fzf)
+  tmux new-session -s "$(basename $dir)" -c "$dir" -n "main"
+}
+
