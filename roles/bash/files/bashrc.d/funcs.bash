@@ -45,6 +45,10 @@ fromhex(){
 
 projectDir() {
   dir=$(find ~/workspace -mindepth 2 -maxdepth 2 -type d | fzf)
-  tmux new-session -s "$(basename $dir)" -c "$dir" -n "main"
+  if [[ "$dir" != "" ]]; then
+    tmux new-session -s "$(basename $dir)" -c "$dir" -n "main"
+  else
+    echo "No directory chosen."
+  fi
 }
 
